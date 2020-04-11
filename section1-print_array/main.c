@@ -9,6 +9,7 @@ Purpose: This file initiate array in size 10, that contain pointers to
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 #define SIZE (10)
 #define INITIAL_INDEX (0)
@@ -80,6 +81,7 @@ void initiate_int_array_and_pointer_array(int array[SIZE], int *pointer_array[SI
 	}
 
 	/*random values to the elements, including negative numbers*/
+	srand((unsigned int)time(NULL));
 	for (index = 0; index < SIZE; ++index) {
 		array[index] = rand() % (RAND_MAX + ONE) - RAND_MAX / TWO;
 	}
@@ -105,4 +107,42 @@ void initiate_int_array_and_pointer_array(int array[SIZE], int *pointer_array[SI
 		/*add to array of indexes that have already been*/
 		array_of_indexes[index] = index_in_array;
 	}
+}
+
+void main() {
+	/********************************************************\
+	* Function name - main
+	*
+	* Function Purpose - initiate array in size SIZE, that contain pointers to
+	*					 addresses of int variables,
+	*					 randomize the int variables,
+	*					 print the index in array, the address, and the value
+	*
+	* Parameters - no Input/Output parameters
+	*
+	* Return Value - there isn't return value
+	*
+	* Side Effects - this function has no side effects
+	*
+	* Semantics - initiate array in size SIZE, that contain pointers to
+	*			  addresses of int variables,
+	*			  randomize the int variables,
+	*			  print the index in array, the address, and the value
+	*
+	* Author - Liri
+	\********************************************************/
+	int *pointer_array[SIZE];
+	int array[SIZE];
+	int index = 0;
+
+	initiate_int_array_and_pointer_array(array, pointer_array);
+
+	/*print the index, address, and value of each pointer in array*/
+	for (index = 0; index < SIZE; ++index) {
+		printf("%d : %p : %d\n",
+			index,
+			pointer_array[index],
+			*pointer_array[index]);
+	}
+
 }
