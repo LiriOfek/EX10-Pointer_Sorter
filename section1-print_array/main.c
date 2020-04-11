@@ -48,42 +48,37 @@ bool number_in_array(int number, int array[SIZE]) {
 	return false;
 }
 
-void initiate_int_array_and_pointer_array(int array[SIZE], int *pointer_array[SIZE]) {
+void initiate_pointer_array(int array[SIZE], int *pointer_array[SIZE]) {
 	/********************************************************\
-	* Function name - initiate_int_array_and_pointer_array
+	* Function name - initiate_pointer_array
 	*
-	* Function Purpose - initiate array in size SIZE, that contain pointers to
-	*					 addresses of int variables,
-	*					 randomize the int variables,
+	* Function Purpose - initiate *pointer_array, so the each pointer 
+	*					 points to int in array[] in random order,
+	*					 such that won't be two pointers that point to the 
+	*					 same element
 	*
 	* Parameters - no Input/Output parameters
 	*
 	* Return Value - there isn't return value
 	*
-	* Side Effects - this function changes array[] to contain random numbers,
-	*				 and change *pointer_array[] to point on elements in
-	*				 array in random order
+	* Side Effects - this function changes *pointer_array[] to point on elements 
+	*				 in array in random order
 	*
-	* Semantics - initiate array in size SIZE, that contain pointers to
-	*			  addresses of int variables,
-	*			  randomize the int variables, and randomize the order
-	*			  of the pointers
+	* Semantics - initiate *pointer_array, so the each pointer 
+	*					 points to int in array[] in random order,
+	*					 such that won't be two pointers that point to the 
+	*					 same element
 	*
 	* Author - Liri
 	\********************************************************/
 	int index = 0;
 	int index_in_array = 0;
-	int array_of_indexes[SIZE];
+	int array_of_indexes[SIZE]; /*array of indexes that have mapping
+								between pointer to element in array[]*/
 
 	/*initiate array indexes*/
 	for (index = 0; index < SIZE; ++index) {
-		array[index] = NOT_INDEX;
-	}
-
-	/*random values to the elements, including negative numbers*/
-	srand((unsigned int)time(NULL));
-	for (index = 0; index < SIZE; ++index) {
-		array[index] = rand() % (RAND_MAX + ONE) - RAND_MAX / TWO;
+		array_of_indexes[index] = NOT_INDEX;
 	}
 
 	/*pointers to the int variables in different from the order that
@@ -106,6 +101,61 @@ void initiate_int_array_and_pointer_array(int array[SIZE], int *pointer_array[SI
 
 		/*add to array of indexes that have already been*/
 		array_of_indexes[index] = index_in_array;
+	}
+}
+
+void initiate_int_array(int array[SIZE]) {
+	/********************************************************\
+	* Function name - initiate_int_array
+	*
+	* Function Purpose - initiate array[] with random ints, 
+	*					 including negative numbers
+	*
+	* Parameters - no Input/Output parameters
+	*
+	* Return Value - there isn't return value
+	*
+	* Side Effects - this function changes array[] to contain random numbers,
+	*
+	* Semantics - initiate array[] with random ints,
+	*			  incuding negative numbers
+	*
+	* Author - Liri
+	\********************************************************/
+	int index = 0;
+
+	/*random values to the elements, including negative numbers*/
+	srand((unsigned int)time(NULL));
+	for (index = 0; index < SIZE; ++index) {
+		array[index] = rand() % (RAND_MAX + ONE) - RAND_MAX / TWO;
+	}
+
+}
+
+void print_index_address_value_of_pointers(int *pointer_array[SIZE]) {
+	/********************************************************\
+	* Function name - print_index_address_value_of_pointers
+	*
+	* Function Purpose - print the index, address and value
+	*					 of each pointer in *pointer_array[]
+	*
+	* Parameters - no Input/Output parameters
+	*
+	* Return Value - there isn't return value
+	*
+	* Side Effects - this function has no side effect
+	*
+	* Semantics - print the index, address and value 
+	*			  of each pointer in *pointer_array[]
+	*
+	* Author - Liri
+	\********************************************************/
+	int index = 0;
+	for (index = 0; index < SIZE; ++index) {
+		printf("%d : %p : %d\n",
+			index,
+			pointer_array[index],
+			*pointer_array[index]);
 	}
 }
 
@@ -133,16 +183,10 @@ void main() {
 	\********************************************************/
 	int *pointer_array[SIZE];
 	int array[SIZE];
-	int index = 0;
 
-	initiate_int_array_and_pointer_array(array, pointer_array);
+	initiate_int_array(array);
 
-	/*print the index, address, and value of each pointer in array*/
-	for (index = 0; index < SIZE; ++index) {
-		printf("%d : %p : %d\n",
-			index,
-			pointer_array[index],
-			*pointer_array[index]);
-	}
+	initiate_pointer_array(array, pointer_array);
 
+	print_index_address_value_of_pointers(pointer_array);
 }
