@@ -213,6 +213,8 @@ void main() {
 	*					 addresses of int variables,
 	*					 randomize the int variables,
 	*					 print the index in array, the address, and the value
+	*					 call function that sort the values in the pointer array 
+	*					 by swap the pointers in the array
 	*
 	* Parameters - no Input/Output parameters
 	*
@@ -224,6 +226,8 @@ void main() {
 	*			  addresses of int variables,
 	*			  randomize the int variables,
 	*			  print the index in array, the address, and the value
+	*			  call function that sort the values in the pointer array
+	*			  by swap the pointers in the array
 	*
 	* Author - Liri
 	\********************************************************/
